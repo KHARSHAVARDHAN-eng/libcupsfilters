@@ -805,7 +805,15 @@ cfIEEE1284NormalizeMakeModel(
       bufptr ++;
     }
     while (bufptr > buffer && isspace(*(bufptr - 1))) bufptr --;
-    if (bufptr > buffer && bufptr < buffer + bufsize - 1)
+    if (bufptr == buffer)
+    {
+      if (buffer)
+	*buffer = '\0';
+
+      return (NULL);
+    }
+
+    if (bufptr < buffer + bufsize - 1)
     {
       *bufptr = ' ';
       makeptr ++;
@@ -822,7 +830,14 @@ cfIEEE1284NormalizeMakeModel(
       modelptr ++;
       bufptr ++;
     }
-    while (bufptr > buffer && isspace(*(bufptr - 1))) bufptr --;
+    while (bufptr > makeptr && isspace(*(bufptr - 1))) bufptr --;
+    if (!nomakemodel && bufptr == makeptr)
+    {
+      if (buffer)
+	*buffer = '\0';
+
+      return (NULL);
+    }
     *bufptr = '\0';
     if (!nomakemodel && makeptr != bufptr)
       modelptr = makeptr;

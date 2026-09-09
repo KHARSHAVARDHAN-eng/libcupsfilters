@@ -33,6 +33,26 @@ main(void)
     return (1);
   }
 
+  res = cfIEEE1284NormalizeMakeModel("MFG:HP;MDL:;", NULL,
+				     CF_IEEE1284_NORMALIZE_HUMAN, NULL,
+				     buffer, sizeof(buffer), &model, NULL,
+				     NULL);
+  if (res != NULL)
+  {
+    printf("FAIL: MFG:HP;MDL:; expected NULL, got \"%s\"\n", res);
+    return (1);
+  }
+
+  res = cfIEEE1284NormalizeMakeModel("MFG:;MDL:DeskJet;", NULL,
+				     CF_IEEE1284_NORMALIZE_HUMAN, NULL,
+				     buffer, sizeof(buffer), &model, NULL,
+				     NULL);
+  if (res != NULL)
+  {
+    printf("FAIL: MFG:;MDL:DeskJet; expected NULL, got \"%s\"\n", res);
+    return (1);
+  }
+
   res = cfIEEE1284NormalizeMakeModel("MFG:;MDL:;CMD:PostScript;", NULL,
 				     CF_IEEE1284_NORMALIZE_HUMAN, NULL,
 				     buffer, sizeof(buffer), &model, NULL,
